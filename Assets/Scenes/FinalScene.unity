@@ -301,6 +301,8 @@ MonoBehaviour:
   jumpAmt: 9
   moveSpeed: 9
   rb: {fileID: 183433401}
+  maxJumps: 40
+  jumps: 40
   titleText: {fileID: 598165825}
   pressSpaceText: {fileID: 1010108046}
 --- !u!1 &207962860

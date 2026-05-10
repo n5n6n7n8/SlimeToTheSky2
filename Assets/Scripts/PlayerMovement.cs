@@ -4,11 +4,16 @@ using TMPro;
 
 
 
+
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float jumpAmt = 5f;
     [SerializeField] private float moveSpeed = 2f;
     public Rigidbody2D rb;
+
+    public int maxJumps = 40;
+    public int jumps = 40;
     private bool shouldJump = false;
     private bool gameStarted = false;
 
@@ -45,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (keyboard.spaceKey.wasPressedThisFrame && canJump)
+        if (keyboard.spaceKey.wasPressedThisFrame && canJump && jumps > 0)
         {
             shouldJump = true;
         }
@@ -71,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (shouldJump)
         {
+            jumps--;
+            Debug.Log(jumps);
             rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
             shouldJump = false;
@@ -82,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.CompareTag("Platform"))
         {
-            Debug.Log("can jump");
+            Debug.Log("in");
             canJump = true;
         }
     }
@@ -90,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            Debug.Log("cant jump");
+            Debug.Log("out");
             canJump = false;
         }
     }

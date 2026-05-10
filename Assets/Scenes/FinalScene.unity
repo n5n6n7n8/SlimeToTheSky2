@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 183433398}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -3.48, z: 0}
+  m_LocalPosition: {x: -0.63, y: -3.72, z: 0}
   m_LocalScale: {x: 0.4469262, y: 0.4469262, z: 0.4469262}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -228,7 +228,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -298,9 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d308f330067941e18b9487ebaa1c880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  jumpAmt: 9
+  jumpAmt: 7
   moveSpeed: 9
   rb: {fileID: 183433401}
+  fallThreshold: 8
+  gravityScale: 1.3
   titleText: {fileID: 598165825}
   pressSpaceText: {fileID: 1010108046}
 --- !u!1 &207962860
@@ -1086,6 +1088,7 @@ GameObject:
   - component: {fileID: 835334148}
   - component: {fileID: 835334150}
   - component: {fileID: 835334149}
+  - component: {fileID: 835334151}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1212,6 +1215,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835334147}
   m_CullTransparentMesh: 1
+--- !u!114 &835334151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835334147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7769ea86af397c244a39754d3b4cd0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  player: {fileID: 183433400}
+  scoreText: {fileID: 835334149}
 --- !u!1 &1010108046
 GameObject:
   m_ObjectHideFlags: 0

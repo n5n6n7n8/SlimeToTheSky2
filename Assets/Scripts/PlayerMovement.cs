@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     private bool shouldJump = false;
     private bool gameStarted = false;
-
+    public float fallThreshold = 5f;
+    public float gravityScale = 3f;
+    private float highestPlayerY;
     public GameObject titleText;
     public GameObject pressSpaceText;
 
@@ -33,12 +35,20 @@ public class PlayerMovement : MonoBehaviour
             if (keyboard.spaceKey.wasPressedThisFrame)
             {
                 gameStarted = true;
-                rb.gravityScale = 1f;
+                rb.gravityScale = gravityScale;
                 titleText.SetActive(false);
                 pressSpaceText.SetActive(false);
-                shouldJump = true;
             }
             return;
+        }
+
+        if (transform.position.y > highestPlayerY)
+        {
+            highestPlayerY = transform.position.y;
+        }
+        if (highestPlayerY - transform.position.y > fallThreshold)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
         }
 
         if (keyboard.spaceKey.wasPressedThisFrame)

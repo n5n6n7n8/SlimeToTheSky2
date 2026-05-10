@@ -19,7 +19,6 @@ public class CameraFollow : MonoBehaviour
         if (player == null) return;
 
         float targetY = player.position.y;
-        Vector3 targetPos = new Vector3(fixedX, targetY, fixedZ);
-        transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed * Time.deltaTime);
+        transform.position = new Vector3(fixedX, targetY, fixedZ);
     }
 }

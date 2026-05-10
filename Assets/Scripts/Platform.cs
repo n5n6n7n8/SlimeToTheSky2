@@ -1,4 +1,4 @@
-using System.Threading.Tasks.Dataflow;
+
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -11,12 +11,13 @@ public class Platform : MonoBehaviour
         transform = GetComponent<Transform>();
     }
     public void Initialize(float pSize, float xpos, float ypos) {
-        transform.x.localScale = pSize;
+        platformSize = pSize;
+        transform.localScale = new Vector3(platformSize, transform.localScale.y, transform.localScale.z);
         transform.position = new Vector2(xpos, ypos);
         
     }
     public void Initialize(float xpos, float ypos) {
-        transform.x.localScale = platformSize;
+        transform.localScale = new Vector3(platformSize, transform.localScale.y, transform.localScale.z);
         transform.position = new Vector2(xpos, ypos);
     }
 

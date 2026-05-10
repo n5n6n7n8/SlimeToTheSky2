@@ -23,7 +23,7 @@ public class PlatformGenerator : MonoBehaviour
     {
         while(height > startPlatform.GetComponent<Platform>().getY())
         {
-            float x = Random.Range(-2.5f, 2.5f);
+            float x = Random.Range(-2.5f, 1.0f);
             float y = Random.Range(1.0f, 3.0f);
             y += startPlatform.GetComponent<Platform>().getY();
             Vector2 spawnPos = new Vector2(x, y);

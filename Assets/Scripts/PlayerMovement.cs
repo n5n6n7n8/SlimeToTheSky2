@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float jumpAmt = 5f;
@@ -9,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     private bool shouldJump = false;
     private bool gameStarted = false;
+
+    bool canJump = true; // is the player currently on a slime platform?
 
     public GameObject titleText;
     public GameObject pressSpaceText;
@@ -41,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (keyboard.spaceKey.wasPressedThisFrame)
+        if (keyboard.spaceKey.wasPressedThisFrame && canJump)
         {
             shouldJump = true;
         }
@@ -70,6 +74,24 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
             shouldJump = false;
+        }
+    }
+
+
+
+    void OnTriggerEnter2D(Collider2D other){
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            Debug.Log("can jump");
+            canJump = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            Debug.Log("cant jump");
+            canJump = false;
         }
     }
 }

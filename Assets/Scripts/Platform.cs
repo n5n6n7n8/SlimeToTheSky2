@@ -20,5 +20,9 @@ public class Platform : MonoBehaviour
         transform.localScale = new Vector3(platformSize, transform.localScale.y, transform.localScale.z);
         transform.position = new Vector2(xpos, ypos);
     }
+    public float getY()
+    {
+        return transform.position.y;
+    }
 
 }

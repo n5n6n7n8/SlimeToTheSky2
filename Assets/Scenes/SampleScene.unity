@@ -298,9 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d308f330067941e18b9487ebaa1c880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  jumpAmt: 15
+  jumpAmt: 6
   moveSpeed: 9
   rb: {fileID: 183433401}
+  titleText: {fileID: 0}
+  pressSpaceText: {fileID: 0}
 --- !u!1 &207962860
 GameObject:
   m_ObjectHideFlags: 0

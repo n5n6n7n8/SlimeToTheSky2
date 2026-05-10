@@ -30,9 +30,17 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
         }
+        else if (keyboard.aKey.wasReleasedThisFrame)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        }
         if (keyboard.dKey.isPressed)
         {
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
+        }
+        else if (keyboard.dKey.wasReleasedThisFrame)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
     }
     void FixedUpdate()

@@ -1,27 +1,56 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float jumpAmt = 5f;
     [SerializeField] private float moveSpeed = 2f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Rigidbody2D rb;
     private bool shouldJump = false;
+    private bool gameStarted = false;
+    public float fallThreshold = 5f;
+    public float gravityScale = 3f;
+    private float highestPlayerY;
+    public GameObject titleText;
+    public GameObject pressSpaceText;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         var keyboard = Keyboard.current;
-        if(keyboard == null)
+        if (keyboard == null)
         {
             Debug.Log("No keyboard detected");
             return;
         }
+
+        if (!gameStarted)
+        {
+            if (keyboard.spaceKey.wasPressedThisFrame)
+            {
+                gameStarted = true;
+                rb.gravityScale = gravityScale;
+                titleText.SetActive(false);
+                pressSpaceText.SetActive(false);
+            }
+            return;
+        }
+
+        if (transform.position.y > highestPlayerY)
+        {
+            highestPlayerY = transform.position.y;
+        }
+        if (highestPlayerY - transform.position.y > fallThreshold)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+        }
+
         if (keyboard.spaceKey.wasPressedThisFrame)
         {
             shouldJump = true;
@@ -43,11 +72,12 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
     }
+
     void FixedUpdate()
     {
         if (shouldJump)
         {
-            rb.linearVelocity = new Vector2(0f,0f);
+            rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
             shouldJump = false;
         }

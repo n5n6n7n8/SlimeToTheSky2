@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //height for the platforms to generate up to (5 above player Y)
+    //start with 
     void Start()
     {
         

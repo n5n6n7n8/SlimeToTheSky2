@@ -24,11 +24,16 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip jumpSound;
 
+    public AudioSource ambientSource;
+    public AudioSource bgmusic;
+    public AudioSource eatSFX;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         rb.gravityScale = 0f;
+        ambientSource.Play();
     }
 
     void Update()
@@ -53,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (keyboard.spaceKey.wasPressedThisFrame)
             {
+                ambientSource.Stop();
+                bgmusic.Play();
                 gameStarted = true;
                 rb.gravityScale = gravityScale;
                 titleText.SetActive(false);
@@ -119,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Pizza"))
         {
+            eatSFX.Play();
             jumps += 5;
             if (jumps > maxJumps)
             {
@@ -129,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Lava"))
         {
+            bgmusic.Stop();
             UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
         }
     }

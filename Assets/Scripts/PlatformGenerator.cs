@@ -15,6 +15,7 @@ public class PlatformGenerator : MonoBehaviour
     [SerializeField] GameObject pizzaPrefab;
     float height = 10f;
     int platformsGenerated = 0;
+    float platformOffset = 0.0f;
     //from 0.4 to 1.0
     void Start()
     {
@@ -27,7 +28,7 @@ public class PlatformGenerator : MonoBehaviour
         while(height > startPlatform.GetComponent<Platform>().getY())
         {
             float x = Random.Range(-2.5f, 1.0f);
-            float y = Random.Range(1.6f, 2.8f);
+            float y = Random.Range(1.4f + platformOffset, 2.3f + platformOffset);
             y += startPlatform.GetComponent<Platform>().getY();
             Vector2 spawnPos = new Vector2(x, y);
             
@@ -35,7 +36,11 @@ public class PlatformGenerator : MonoBehaviour
             platformsGenerated++;
             //Debug.Log("platform generated" + platformsGenerated);
             if(platformsGenerated % 5 == 0)
-            {
+            {   
+                if(platformOffset < 0.5f)
+                {
+                    platformOffset += 0.03f;
+                }
                 //Debug.Log("pizza generated");
                 Instantiate(pizzaPrefab, new Vector2(x, y + 0.5f), Quaternion.identity);
             }

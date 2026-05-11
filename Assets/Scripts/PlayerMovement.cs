@@ -2,16 +2,28 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+
+
+
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float jumpAmt = 5f;
     [SerializeField] private float moveSpeed = 2f;
     public Rigidbody2D rb;
+
+    public int maxJumps = 40;
+    public int jumps = 40;
     private bool shouldJump = false;
     private bool gameStarted = false;
     public float fallThreshold = 5f;
     public float gravityScale = 3f;
     private float highestPlayerY;
+
+    bool canJump = true; // is the player currently on a slime platform?
+
+    Collider2D toDestroy;
+
     public GameObject titleText;
     public GameObject pressSpaceText;
 
@@ -51,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
         }
 
-        if (keyboard.spaceKey.wasPressedThisFrame)
+        if (keyboard.spaceKey.wasPressedThisFrame && canJump && jumps > 0)
         {
             shouldJump = true;
         }
@@ -77,9 +89,31 @@ public class PlayerMovement : MonoBehaviour
     {
         if (shouldJump)
         {
+            jumps--;
             rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
             shouldJump = false;
+            Destroy(toDestroy.gameObject);
+        }
+    }
+
+
+
+    void OnTriggerEnter2D(Collider2D other){
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            Debug.Log("in");
+            canJump = true;
+            toDestroy = other;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            Debug.Log("out");
+            canJump = false;
+            toDestroy = null;
         }
     }
 }

@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     bool canJump = true; // is the player currently on a slime platform?
 
+    Collider2D toDestroy;
+
     public GameObject titleText;
     public GameObject pressSpaceText;
 
@@ -77,10 +79,10 @@ public class PlayerMovement : MonoBehaviour
         if (shouldJump)
         {
             jumps--;
-            Debug.Log(jumps);
             rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
             shouldJump = false;
+            Destroy(toDestroy.gameObject);
         }
     }
 
@@ -91,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("in");
             canJump = true;
+            toDestroy = other;
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -99,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("out");
             canJump = false;
+            toDestroy = null;
         }
     }
 }

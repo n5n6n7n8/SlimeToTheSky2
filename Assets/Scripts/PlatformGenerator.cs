@@ -27,6 +27,7 @@ public class PlatformGenerator : MonoBehaviour
             float y = Random.Range(2.0f, 3.0f);
             y += startPlatform.GetComponent<Platform>().getY();
             Vector2 spawnPos = new Vector2(x, y);
+            
             startPlatform = Instantiate(platformPrefab, spawnPos, Quaternion.identity);
             
         }

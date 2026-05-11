@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject pressSpaceText;
     public Slider slider;
     SpriteRenderer sr;
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
 
     void Start()
     {
@@ -100,8 +102,10 @@ public class PlayerMovement : MonoBehaviour
             slider.value = jumps;
             rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
+            audioSource.PlayOneShot(jumpSound);
             shouldJump = false;
             Destroy(toDestroy.gameObject);
+
         }
     }
 

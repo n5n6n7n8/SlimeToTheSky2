@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float jumpAmt = 5f;
     [SerializeField] private float moveSpeed = 2f;
-    public Rigidbody2D rb;
+    Rigidbody2D rb;
 
     public int maxJumps = 40;
     public int jumps = 40;
@@ -27,9 +27,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject titleText;
     public GameObject pressSpaceText;
 
+    SpriteRenderer sr;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         rb.gravityScale = 0f;
     }
 
@@ -69,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (keyboard.aKey.isPressed)
         {
+            sr.flipX = false;
             rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
         }
         else if (keyboard.aKey.wasReleasedThisFrame)
@@ -77,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (keyboard.dKey.isPressed)
         {
+            sr.flipX = true;
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
         }
         else if (keyboard.dKey.wasReleasedThisFrame)

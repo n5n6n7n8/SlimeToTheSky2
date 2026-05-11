@@ -480,7 +480,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   jumpAmt: 7
   moveSpeed: 9
-  rb: {fileID: 183433401}
   maxJumps: 40
   jumps: 40
   fallThreshold: 10

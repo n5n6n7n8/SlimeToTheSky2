@@ -1,5 +1,6 @@
 
 
+
 using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
@@ -11,7 +12,9 @@ public class PlatformGenerator : MonoBehaviour
     public Transform player;
     [SerializeField] GameObject startPlatform;
     [SerializeField] GameObject platformPrefab;
+    [SerializeField] GameObject pizzaPrefab;
     float height = 10f;
+    int platformsGenerated = 0;
     //from 0.4 to 1.0
     void Start()
     {
@@ -29,6 +32,13 @@ public class PlatformGenerator : MonoBehaviour
             Vector2 spawnPos = new Vector2(x, y);
             
             startPlatform = Instantiate(platformPrefab, spawnPos, Quaternion.identity);
+            platformsGenerated++;
+            //Debug.Log("platform generated" + platformsGenerated);
+            if(platformsGenerated % 5 == 0)
+            {
+                //Debug.Log("pizza generated");
+                Instantiate(pizzaPrefab, new Vector2(x, y + 0.5f), Quaternion.identity);
+            }
             
         }
         if(player.position.y + 10f > height)

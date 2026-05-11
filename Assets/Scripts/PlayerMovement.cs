@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 
 
@@ -12,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     Rigidbody2D rb;
 
-    public int maxJumps = 40;
-    public int jumps = 40;
+    public int maxJumps = 5;
+    public int jumps = 6;
     private bool shouldJump = false;
     private bool gameStarted = false;
     public float fallThreshold = 5f;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject titleText;
     public GameObject pressSpaceText;
+    public Slider slider;
 
     SpriteRenderer sr;
 
@@ -95,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
         if (shouldJump)
         {
             jumps--;
+            slider.value = jumps;
             rb.linearVelocity = new Vector2(0f, 0f);
             rb.AddForce(Vector2.up * jumpAmt, ForceMode2D.Impulse);
             shouldJump = false;
@@ -110,6 +113,16 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("in");
             canJump = true;
             toDestroy = other;
+        }
+        else if (other.gameObject.CompareTag("Pizza"))
+        {
+            jumps += 5;
+            if(jumps>maxJumps)
+            {
+                jumps = maxJumps;
+            }
+                slider.value = jumps;
+            Destroy(other.gameObject);
         }
     }
     void OnTriggerExit2D(Collider2D other)

@@ -3,16 +3,11 @@ using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
 
-
-
-
-
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float jumpAmt = 5f;
     [SerializeField] private float moveSpeed = 2f;
     Rigidbody2D rb;
-
     public int maxJumps = 5;
     public int jumps = 6;
     private bool shouldJump = false;
@@ -20,15 +15,11 @@ public class PlayerMovement : MonoBehaviour
     public float fallThreshold = 5f;
     public float gravityScale = 3f;
     private float highestPlayerY;
-
-    bool canJump = true; // is the player currently on a slime platform?
-
+    bool canJump = true;
     Collider2D toDestroy;
-
     public GameObject titleText;
     public GameObject pressSpaceText;
     public Slider slider;
-
     SpriteRenderer sr;
 
     void Start()
@@ -105,9 +96,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
-    void OnTriggerEnter2D(Collider2D other){
+    void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.gameObject.CompareTag("Platform"))
         {
             Debug.Log("in");
@@ -117,14 +107,19 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.CompareTag("Pizza"))
         {
             jumps += 5;
-            if(jumps>maxJumps)
+            if (jumps > maxJumps)
             {
                 jumps = maxJumps;
             }
-                slider.value = jumps;
+            slider.value = jumps;
             Destroy(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("Lava"))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+        }
     }
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Platform"))

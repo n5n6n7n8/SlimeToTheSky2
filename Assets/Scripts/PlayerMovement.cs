@@ -38,6 +38,15 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (keyboard.escapeKey.wasPressedThisFrame)
+        {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+            Application.Quit();
+            #endif
+        }
+
         if (!gameStarted)
         {
             if (keyboard.spaceKey.wasPressedThisFrame)
